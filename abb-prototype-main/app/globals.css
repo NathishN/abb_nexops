@@ -1,0 +1,851 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+@custom-variant dark (&:is(.dark *));
+
+/* Scrollbar — light ABB theme */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--abb-surface-0, #f3f4f6);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--abb-line-strong, #b7bec9);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--abb-ink-3, #8b94a3);
+}
+
+/* Pulse animations */
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.15; }
+}
+
+.pulse {
+  animation: pulse-dot 1.4s ease-in-out infinite;
+}
+
+.pulse-fast {
+  animation: pulse-dot 0.8s ease-in-out infinite;
+}
+
+/* Critical blink — bar and text */
+@keyframes blink-bar {
+  0%, 100% { opacity: 1; }
+  40% { opacity: 0.25; }
+  60% { opacity: 0.25; }
+}
+
+.blink-critical {
+  animation: blink-bar 1.2s ease-in-out infinite;
+}
+
+/* Red glow breathing on critical rows */
+@keyframes glow-red {
+  0%, 100% { box-shadow: 0 0 6px rgba(239,68,68,0.25), inset 0 0 0 1px rgba(239,68,68,0.1); }
+  50% { box-shadow: 0 0 22px rgba(239,68,68,0.55), 0 0 44px rgba(239,68,68,0.15), inset 0 0 0 1px rgba(239,68,68,0.25); }
+}
+
+.glow-critical {
+  animation: glow-red 1.6s ease-in-out infinite;
+}
+
+/* Blue glow for ARIA chatbot */
+@keyframes glow-blue {
+  0%, 100% { box-shadow: 0 0 6px rgba(59,130,246,0.2); }
+  50% { box-shadow: 0 0 18px rgba(59,130,246,0.45), 0 0 36px rgba(59,130,246,0.1); }
+}
+
+.glow-blue {
+  animation: glow-blue 2s ease-in-out infinite;
+}
+
+/* Shimmer sweep across bar fills */
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.shimmer-bar {
+  background-size: 200% 100%;
+  animation: shimmer 2.5s linear infinite;
+}
+
+/* Page fade-in-up on mount */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.5s ease-out both;
+}
+
+/* Stagger children — use on parent */
+.stagger > *:nth-child(1) { animation-delay: 0ms; }
+.stagger > *:nth-child(2) { animation-delay: 80ms; }
+.stagger > *:nth-child(3) { animation-delay: 160ms; }
+.stagger > *:nth-child(4) { animation-delay: 240ms; }
+.stagger > *:nth-child(5) { animation-delay: 320ms; }
+.stagger > *:nth-child(6) { animation-delay: 400ms; }
+.stagger > *:nth-child(7) { animation-delay: 480ms; }
+.stagger > *:nth-child(8) { animation-delay: 560ms; }
+
+/* Card hover lift — premium light theme */
+.card-hover {
+  transition: transform 0.24s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.24s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.24s ease;
+}
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(20,26,38,0.1), 0 2px 8px rgba(20,26,38,0.04);
+}
+
+/* Smooth bar grow on load */
+@keyframes growWidth {
+  from { width: 0%; }
+}
+
+.grow-bar {
+  animation: growWidth 0.8s ease-out both;
+}
+
+/* Green success pulse */
+@keyframes glow-green {
+  0%, 100% { box-shadow: 0 0 8px rgba(34,197,94,0.2); }
+  50% { box-shadow: 0 0 20px rgba(34,197,94,0.5), 0 0 40px rgba(34,197,94,0.1); }
+}
+
+.glow-success {
+  animation: glow-green 2s ease-in-out infinite;
+}
+
+/* Mono font utility */
+.mono {
+  font-family: var(--font-jetbrains-mono), 'JetBrains Mono', monospace;
+}
+
+@theme inline {
+  --font-heading: var(--font-sans);
+  --font-sans: var(--font-geist-sans), 'Geist Fallback';
+  --font-mono: var(--font-geist-mono), 'Geist Mono Fallback';
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  color-scheme: light;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+
+  /* ABB control-system variables (light theme default) */
+  --abb-surface-0: #f3f4f6; /* page background */
+  --abb-surface-1: #ffffff; /* cards / panels */
+  --abb-surface-2: #e9ebef; /* insets, table header, hover */
+  --abb-surface-3: #dfe2e8; /* deeper inset */
+
+  /* Ink — dark grey text */
+  --abb-ink-0: #1c2230; /* primary text / headings */
+  --abb-ink-1: #39414f; /* secondary */
+  --abb-ink-2: #5a6473; /* muted */
+  --abb-ink-3: #8b94a3; /* faint / uppercase micro-labels */
+
+  /* Borders */
+  --abb-line-faint: #e6e8ec;
+  --abb-line: #d3d8df;
+  --abb-line-strong: #b7bec9;
+
+  /* State / risk palette — ISA-101 discipline */
+  --abb-nominal: #6c7480; /* LOW / nominal — QUIET grey */
+  --abb-nominal-soft: #eef0f3;
+  --abb-warning: #b07313; /* MEDIUM / warning — amber / ochre */
+  --abb-warning-soft: #fbf3e2;
+  --abb-warning-line: #e6cf95;
+  --abb-high: #c04a1b; /* HIGH — deep orange (between amber and alarm, NOT red) */
+  --abb-high-soft: #fbeee6;
+  --abb-high-line: #ecc3ad;
+  --abb-early: #4338ca; /* EARLY / predictive — indigo (deliberately NON-red) */
+  --abb-early-soft: #ecedfb;
+  --abb-early-line: #c3c5f0;
+  --abb-alarm: #c1121f; /* CRITICAL / alarm — RED, used NOWHERE else */
+  --abb-alarm-strong: #a30d18;
+  --abb-alarm-soft: #fae9ea;
+  --abb-alarm-line: #e9aab0;
+  --abb-nuisance: #98a1b0; /* nuisance-filtered — muted / de-emphasised */
+  --abb-nuisance-soft: #eef0f2;
+
+  /* ABB Brand Colors */
+  --abb-red: #E00A18;
+  --abb-red-hover: #c10915;
+
+  /* Typography — brand identity lives in TYPE, not colour */
+  --abb-font-ui: var(--font-outfit), 'Outfit', system-ui, sans-serif;
+  --abb-font-data: var(--font-space-grotesk), 'Space Grotesk', sans-serif;
+  --abb-font-mono: var(--font-jetbrains-mono), 'JetBrains Mono', monospace;
+
+  /* Radii — crisp, small (control-panel convention) */
+  --abb-radius: 4px;
+  --abb-radius-sm: 3px;
+  --abb-radius-pill: 999px;
+
+  /* Elevation — flat; a hairline + faint shadow only */
+  --abb-shadow-1: 0 1px 2px rgba(20, 26, 38, 0.06);
+  --abb-shadow-2: 0 4px 14px rgba(20, 26, 38, 0.08);
+
+  /* Nav glassmorphism background */
+  --abb-nav-bg: rgba(255, 255, 255, 0.92);
+}
+
+.dark {
+  color-scheme: dark;
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+
+  /* ── ABB dark-mode token overrides ──────────────────────────────────────
+     Surfaces move from off-white to deep navy-slate. Text inverts.
+     Status hues (red/amber/indigo) are preserved — they carry operational
+     meaning and must look identical to operators switching modes.
+     Soft badge backgrounds darken to stay within the surface range.       */
+
+  /* Surfaces */
+  --abb-surface-0: #0d1117;
+  --abb-surface-1: #161b27;
+  --abb-surface-2: #1e2334;
+  --abb-surface-3: #242a3d;
+
+  /* Ink */
+  --abb-ink-0: #e8ecf1;
+  --abb-ink-1: #b8bdc8;
+  --abb-ink-2: #7a8499;
+  --abb-ink-3: #4e5668;
+
+  /* Borders */
+  --abb-line-faint: #1a2030;
+  --abb-line:       #263048;
+  --abb-line-strong: #374060;
+
+  /* Status palette — same hues, slightly boosted for dark legibility */
+  --abb-nominal:        #7a8499;
+  --abb-nominal-soft:   #161c2c;
+  --abb-warning:        #c49020;
+  --abb-warning-soft:   #1a1400;
+  --abb-warning-line:   #3d3000;
+  --abb-high:           #d05c2a;
+  --abb-high-soft:      #1c0c00;
+  --abb-high-line:      #381800;
+  --abb-early:          #6366f1;
+  --abb-early-soft:     #0e1030;
+  --abb-early-line:     #242878;
+  --abb-alarm:          #e8202e;
+  --abb-alarm-strong:   #c1121f;
+  --abb-alarm-soft:     #1a0406;
+  --abb-alarm-line:     #3d0a12;
+  --abb-nuisance:       #5a6473;
+  --abb-nuisance-soft:  #161c2c;
+
+  /* ABB red brand stays constant — it is a brand colour, not a surface */
+  /* --abb-red: #E00A18; (unchanged) */
+
+  /* Shadows — stronger contrast on dark surfaces */
+  --abb-shadow-1: 0 1px 3px rgba(0, 0, 0, 0.45);
+  --abb-shadow-2: 0 4px 16px rgba(0, 0, 0, 0.60);
+
+  /* Nav glassmorphism background */
+  --abb-nav-bg: rgba(13, 17, 23, 0.92);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    color-scheme: dark;
+    --background: oklch(0.145 0 0);
+    --foreground: oklch(0.985 0 0);
+    --card: oklch(0.205 0 0);
+    --card-foreground: oklch(0.985 0 0);
+    --popover: oklch(0.205 0 0);
+    --popover-foreground: oklch(0.985 0 0);
+    --primary: oklch(0.922 0 0);
+    --primary-foreground: oklch(0.205 0 0);
+    --secondary: oklch(0.269 0 0);
+    --secondary-foreground: oklch(0.985 0 0);
+    --muted: oklch(0.269 0 0);
+    --muted-foreground: oklch(0.708 0 0);
+    --accent: oklch(0.269 0 0);
+    --accent-foreground: oklch(0.985 0 0);
+    --destructive: oklch(0.704 0.191 22.216);
+    --border: oklch(1 0 0 / 10%);
+    --input: oklch(1 0 0 / 15%);
+    --ring: oklch(0.556 0 0);
+    --chart-1: oklch(0.87 0 0);
+    --chart-2: oklch(0.556 0 0);
+    --chart-3: oklch(0.439 0 0);
+    --chart-4: oklch(0.371 0 0);
+    --chart-5: oklch(0.269 0 0);
+    --sidebar: oklch(0.205 0 0);
+    --sidebar-foreground: oklch(0.985 0 0);
+    --sidebar-primary: oklch(0.488 0.243 264.376);
+    --sidebar-primary-foreground: oklch(0.985 0 0);
+    --sidebar-accent: oklch(0.269 0 0);
+    --sidebar-accent-foreground: oklch(0.985 0 0);
+    --sidebar-border: oklch(1 0 0 / 10%);
+    --sidebar-ring: oklch(0.556 0 0);
+
+    /* Surfaces */
+    --abb-surface-0: #0d1117;
+    --abb-surface-1: #161b27;
+    --abb-surface-2: #1e2334;
+    --abb-surface-3: #242a3d;
+
+    /* Ink */
+    --abb-ink-0: #e8ecf1;
+    --abb-ink-1: #b8bdc8;
+    --abb-ink-2: #7a8499;
+    --abb-ink-3: #4e5668;
+
+    /* Borders */
+    --abb-line-faint: #1a2030;
+    --abb-line:       #263048;
+    --abb-line-strong: #374060;
+
+    /* Status palette — same hues, slightly boosted for dark legibility */
+    --abb-nominal:        #7a8499;
+    --abb-nominal-soft:   #161c2c;
+    --abb-warning:        #c49020;
+    --abb-warning-soft:   #1a1400;
+    --abb-warning-line:   #3d3000;
+    --abb-high:           #d05c2a;
+    --abb-high-soft:      #1c0c00;
+    --abb-high-line:      #381800;
+    --abb-early:          #6366f1;
+    --abb-early-soft:     #0e1030;
+    --abb-early-line:     #242878;
+    --abb-alarm:          #e8202e;
+    --abb-alarm-strong:   #c1121f;
+    --abb-alarm-soft:     #1a0406;
+    --abb-alarm-line:     #3d0a12;
+    --abb-nuisance:       #5a6473;
+    --abb-nuisance-soft:  #161c2c;
+
+    /* Shadows — stronger contrast on dark surfaces */
+    --abb-shadow-1: 0 1px 3px rgba(0, 0, 0, 0.45);
+    --abb-shadow-2: 0 4px 16px rgba(0, 0, 0, 0.60);
+
+    /* Nav glassmorphism background */
+    --abb-nav-bg: rgba(13, 17, 23, 0.92);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--abb-font-ui) !important;
+  }
+  html {
+    @apply font-sans;
+  }
+}
+
+body, button, input, select, textarea {
+  font-family: var(--abb-font-ui) !important;
+}
+
+.abb-data {
+  font-family: var(--abb-font-mono) !important;
+}
+
+/* ====================================================================== */
+/* ABB CONTROL-SYSTEM DESIGN TOKENS (Stage UI-1) — ISA-101 high-perf HMI  */
+/* LIGHT theme. Single source of truth: every later page imports          */
+/* globals.css and references these CSS variables (var(--abb-*)). Defined  */
+/* in a plain :root with NO dark override, so the control surface stays    */
+/* light regardless of OS colour scheme. Restyled primitives + Home/Login  */
+/* consume these; Plant/Field/Technician inherit them in the next pass.    */
+/*                                                                         */
+/* COLOUR DISCIPLINE: "fine" is QUIET grey (never green-everywhere). RED   */
+/* (--abb-alarm) is reserved for CRITICAL/alarm ONLY — never headers,      */
+/* logo, buttons or brand — so red always carries genuine alarm meaning.   */
+/* EARLY/predictive uses a distinct NON-red treatment (indigo).            */
+/*                                                                         */
+/* RESPONSIVE BREAKPOINTS: sm 640 · md 768 · lg 1024 · xl 1280px.          */
+/* ====================================================================== */
+
+/* ---- Layout containers (responsive) -------------------------------- */
+/* Opaque light surface that COVERS the root layout's dark background, so
+   Home/Login render light without touching layout.tsx (dashboards keep
+   their current background until they adopt these tokens next pass). */
+.abb-page {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  width: 100%;
+  background: var(--abb-surface-0);
+  color: var(--abb-ink-1);
+  font-family: var(--abb-font-ui);
+}
+.abb-shell {
+  max-width: 1280px;
+  margin: 0 auto;
+  width: 100%;
+  padding-left: clamp(16px, 4vw, 56px);
+  padding-right: clamp(16px, 4vw, 56px);
+}
+.abb-data {
+  font-family: var(--abb-font-data);
+}
+.abb-micro {
+  font-family: var(--abb-font-data);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 11px;
+  color: var(--abb-ink-3);
+}
+
+/* Hero: 2-col on desktop, stacks under lg (1024). */
+.abb-hero {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: clamp(28px, 4vw, 56px);
+  align-items: center;
+  padding-top: clamp(32px, 5vw, 64px);
+  padding-bottom: clamp(28px, 4vw, 48px);
+}
+@media (max-width: 1024px) {
+  .abb-hero { grid-template-columns: 1fr; }
+}
+
+/* Role cards: auto-fit, collapse to single column on small screens. */
+.abb-roles-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+@media (max-width: 900px) {
+  .abb-roles-grid { grid-template-columns: 1fr; }
+}
+
+/* Login: form + side panel, stacks under md (860). */
+.abb-login-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.05fr;
+  gap: clamp(24px, 4vw, 48px);
+  align-items: start;
+}
+@media (max-width: 860px) {
+  .abb-login-grid { grid-template-columns: 1fr; }
+}
+
+/* ---- Primitives ----------------------------------------------------- */
+.abb-card {
+  background: var(--abb-surface-1);
+  border: 1px solid var(--abb-line);
+  border-radius: var(--abb-radius);
+  box-shadow: var(--abb-shadow-1);
+  transition: box-shadow 0.28s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.28s ease;
+}
+.abb-card:hover {
+  box-shadow: var(--abb-shadow-2);
+}
+.abb-card--interactive {
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.abb-card--interactive:hover {
+  border-color: var(--abb-line-strong);
+  box-shadow: 0 6px 20px rgba(20,26,38,0.1);
+  transform: translateY(-2px);
+}
+
+.abb-input {
+  width: 100%;
+  background: var(--abb-surface-1);
+  border: 1px solid var(--abb-line);
+  border-radius: var(--abb-radius-sm);
+  padding: 10px 12px;
+  font-family: var(--abb-font-data);
+  font-size: 13px;
+  color: var(--abb-ink-0);
+  outline: none;
+  transition: border-color 0.14s ease, box-shadow 0.14s ease;
+}
+.abb-input:focus {
+  border-color: var(--abb-ink-2);
+  box-shadow: 0 0 0 3px rgba(57, 65, 79, 0.10);
+}
+
+.abb-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: var(--abb-radius-sm);
+  font-family: var(--abb-font-data);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  padding: 11px 16px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: background 0.14s ease, border-color 0.14s ease, color 0.14s ease;
+}
+.abb-btn--primary {
+  background: var(--abb-red);
+  color: #ffffff;
+  border-color: var(--abb-red);
+}
+.abb-btn--primary:hover { background: var(--abb-red-hover); border-color: var(--abb-red-hover); }
+.abb-btn--ghost {
+  background: transparent;
+  color: var(--abb-ink-1);
+  border-color: var(--abb-line);
+}
+.abb-btn--ghost:hover { background: var(--abb-surface-2); }
+.abb-btn[disabled] { opacity: 0.6; cursor: wait; }
+
+/* Badges — uppercase micro pills. EARLY=indigo, NUISANCE=muted grey,
+   WARNING=amber, ALARM=red. */
+.abb-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--abb-font-data);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: var(--abb-radius-sm);
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+.abb-badge--nominal { color: var(--abb-nominal); background: var(--abb-nominal-soft); border-color: var(--abb-line); }
+.abb-badge--warning { color: var(--abb-warning); background: var(--abb-warning-soft); border-color: var(--abb-warning-line); }
+.abb-badge--high    { color: var(--abb-high);    background: var(--abb-high-soft);    border-color: var(--abb-high-line); }
+.abb-badge--early   { color: var(--abb-early);   background: var(--abb-early-soft);   border-color: var(--abb-early-line); }
+.abb-badge--alarm   { color: var(--abb-alarm);   background: var(--abb-alarm-soft);   border-color: var(--abb-alarm-line); }
+.abb-badge--nuisance{ color: var(--abb-nuisance);background: var(--abb-nuisance-soft);border-color: var(--abb-line); }
+
+/* Data table */
+.abb-table { width: 100%; border-collapse: collapse; }
+.abb-table thead th {
+  font-family: var(--abb-font-data);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 11px;
+  color: var(--abb-ink-3);
+  text-align: left;
+  background: var(--abb-surface-2);
+  padding: 9px 14px;
+  border-bottom: 1px solid var(--abb-line);
+}
+.abb-table tbody td {
+  font-size: 13px;
+  color: var(--abb-ink-1);
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--abb-line-faint);
+}
+.abb-table tbody tr {
+  transition: background 0.14s ease;
+}
+.abb-table tbody tr:hover {
+  background: var(--abb-surface-2);
+}
+
+/* Section divider with red accent */
+.abb-section-accent {
+  border-top: 3px solid var(--abb-red);
+}
+
+/* Smooth page section enter */
+@keyframes sectionEnter {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.section-enter {
+  animation: sectionEnter 0.45s ease-out both;
+}
+
+/* Selection highlight */
+::selection {
+  background: rgba(224, 10, 24, 0.12);
+  color: var(--abb-ink-0);
+}
+
+/* ---- Plant dashboard draggable grid (Section 1A) -------------------- */
+.admin-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 20px;
+  grid-auto-flow: row dense;
+  align-items: start;
+}
+/* Tablet: 2-column (full-width widgets stay full). */
+@media (max-width: 1024px) and (min-width: 768px) {
+  .admin-grid > [data-span] { grid-column: span 6 / span 6 !important; }
+  .admin-grid > [data-fullspan='true'] { grid-column: span 12 / span 12 !important; }
+}
+/* Mobile: single stacked column, drag disabled (handled in JS). */
+@media (max-width: 767px) {
+  .admin-grid { grid-template-columns: 1fr; gap: 16px; }
+  .admin-grid > * { grid-column: 1 / -1 !important; }
+}
+.dashboard-card__handle:active { cursor: grabbing; }
+
+/* Highlight ring when a Top-5 bar focuses a machine row (3s). */
+.admin-highlight {
+  outline: 2px solid #f59e0b;
+  outline-offset: 1px;
+  box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.18);
+  transition: outline 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Search-navigation highlight — amber ring that flashes immediately and fades. */
+@keyframes widgetHighlight {
+  /* Ring is fully visible from frame 0 — no slow build-up. */
+  0%, 18% {
+    box-shadow:
+      0 0 0 4px #f59e0b,
+      0 0 0 10px rgba(245, 158, 11, 0.28),
+      0 16px 48px rgba(245, 158, 11, 0.22);
+  }
+  100% {
+    box-shadow:
+      0 0 0 0 rgba(245, 158, 11, 0),
+      0 0 0 0 rgba(245, 158, 11, 0),
+      0 0 0  rgba(245, 158, 11, 0);
+  }
+}
+.dashboard-card--highlight {
+  /* Suppress the .abb-card base transition so the ring appears instantly. */
+  transition: none !important;
+  animation: widgetHighlight 2.6s cubic-bezier(0.4, 0, 0.8, 1) forwards;
+}
+
+/* ---- ARIA floating drawer (Section 2E / 3C) ------------------------- */
+@keyframes ariaSlideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
+@keyframes ariaSlideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+
+/* Dark-mode drawer overrides — stronger shadow against dark surfaces */
+.dark .aria-drawer { box-shadow: -8px 0 32px rgba(0, 0, 0, 0.55); }
+.dark .aria-drawer--mobile { box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.55); }
+.dark .aria-backdrop { background: rgba(0, 0, 0, 0.45); }
+.dark .aria-tab { box-shadow: -4px 0 16px rgba(0, 0, 0, 0.4); }
+
+.aria-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 26, 38, 0.06);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  z-index: 90; /* below the sticky nav (z-100) so the nav stays sharp */
+}
+.aria-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 320px;
+  max-width: 92vw;
+  background: var(--abb-surface-1);
+  border-left: 1px solid var(--abb-line);
+  box-shadow: -8px 0 28px rgba(20, 26, 38, 0.14);
+  z-index: 110; /* above the nav so it spans full height */
+  display: flex;
+  flex-direction: column;
+  animation: ariaSlideIn 0.22s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.aria-drawer--mobile {
+  top: auto;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  max-width: 100%;
+  height: 82vh;
+  border-left: none;
+  border-top: 3px solid var(--abb-red);
+  border-top-left-radius: var(--abb-radius);
+  border-top-right-radius: var(--abb-radius);
+  box-shadow: 0 -8px 28px rgba(20, 26, 38, 0.16);
+  animation: ariaSlideUp 0.24s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.aria-tab {
+  position: fixed;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  z-index: 95;
+  width: 34px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 0;
+  background: var(--abb-surface-1);
+  border: 1px solid var(--abb-line);
+  border-right: none;
+  border-top-left-radius: var(--abb-radius);
+  border-bottom-left-radius: var(--abb-radius);
+  box-shadow: -4px 0 14px rgba(20, 26, 38, 0.08);
+  cursor: pointer;
+}
+.aria-tab__label {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotate(180deg);
+  font-family: var(--abb-font-data);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--abb-early);
+}
+@media (max-width: 767px) {
+  .aria-tab { top: auto; bottom: 16px; transform: none; width: 44px; height: 44px; border-radius: 50%; border-right: 1px solid var(--abb-line); padding: 0; justify-content: center; }
+  .aria-tab__label { writing-mode: horizontal-tb; transform: none; font-size: 8px; }
+}
+
+/* ---- Field Manager machine health grid (Section 2B) ----------------- */
+.machine-health-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+@media (max-width: 767px) {
+  .machine-health-grid { grid-template-columns: 1fr; }
+}
+
+/* Site-wide CRITICAL banner — the ONE place red is allowed to dominate. */
+.abb-banner-alarm {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  background: var(--abb-alarm);
+  color: #ffffff;
+  padding: 13px 24px;
+  border-bottom: 2px solid var(--abb-alarm-strong);
+  font-family: var(--abb-font-data);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-align: center;
+}
+@media (max-width: 640px) {
+  .abb-banner-alarm { font-size: 11px; padding: 10px 14px; }
+}
+
+/* Theme toggle icon visibility (handles React hydration cleanly) */
+.theme-icon-dark {
+  display: none !important;
+}
+.theme-icon-light {
+  display: block !important;
+}
+.dark .theme-icon-dark {
+  display: block !important;
+}
+.dark .theme-icon-light {
+  display: none !important;
+}

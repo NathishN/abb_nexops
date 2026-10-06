@@ -1,0 +1,28 @@
+# Python bytecode cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Auto-generated per-deployment JWT signing secret (NEVER commit)
+.jwt_secret
+
+# OS
+.DS_Store
+Thumbs.db
